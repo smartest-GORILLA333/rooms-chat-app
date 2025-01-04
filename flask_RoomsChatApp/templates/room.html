@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask-SocketIO Chat</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+</head>
+<body>
+     <h2>ROOM : {{room}}</h2>
+    <h3><span id="members-count">{{ rooms[room]["members"] }}</span> members</h3>
+    <div class="chat-box">
+        <div class="messages" id="messages"></div>
+        <div class="input">
+            <input type="text" id="msg" name="msg">
+            <button onclick="sendMsg()" type="button" id="send-btn" name="send-btn">SEND</button>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+
+    let username = "{{username}}";
+    let room = "{{room}}";
+
+    socket.emit("join", { username: username, room: room });
+    socket.on("update_room", function(data) {
+        if (data.room === room) {
+            document.getElementById("members-count").textContent = data.members;
+        }
+    });
+
+    function sendMsg(){
+        const msg = document.getElementById("msg").value;
+        socket.emit("send", { username: username, room: room, txt: msg });
+        document.getElementById("msg").value = '';
+    };
+
+    socket.on("message" , function(data){
+        const msgDiv = document.createElement("div");
+        msgDiv.textContent = data;
+        document.getElementById("messages").appendChild(msgDiv);
+    });
+    </script>
+</body>
+</html>
+

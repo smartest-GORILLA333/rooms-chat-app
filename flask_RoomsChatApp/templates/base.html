@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flask-app1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.7.1/socket.io.min.js"></script>
+
+
+</head>
+<body>
+    <h1>HELLO WORLD ,WELCOME IN MY FIRST PROJECT USING FLASK</h1><br>
+    <div class="container-1">
+      <form action="/userform" method="POST">
+        <label>
+            USERNAME :
+            <input type="text" name="username" placeholder="choose a username">
+        </label>
+        <label>
+            JOIN ROOM :
+            <input type="text" name="roomId" placeholder="enter a room code">
+            <button type="submit" name="join">JOIN</button>
+        </label>
+        <h3>If you like to create your own room click here :</h3>
+        <label>
+            CREATE ROOM :
+            <button type="submit" name="create">CREATE</button>
+        </label>
+
+
+    </form>
+
+    </div>
+
+</body>
+</html>
